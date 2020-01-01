@@ -330,12 +330,10 @@ class KsaProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir, _type=None):
         """See base class."""
-        if not _type:
-            train_dir = os.path.join(data_dir, "shuffle_new_final_train_multi.csv")
-        if _type == 'NAVER_ADDED_ORIGINAL':
-            train_dir = os.path.join(data_dir, "shuffle_new_final_train_original_naver_multi.csv")
-        if _type == 'NAVER_ADDED_REVISED':
-            train_dir = os.path.join(data_dir, "shuffle_new_final_train_revised_naver_multi.csv")
+        if _type == 'cleansed':
+            train_dir = os.path.join(data_dir, "final_single_plus_naver_train.csv")
+        elif _type == 'noncleansed':
+            train_dir = os.path.join(data_dir, "noncleansing_final_single_plus_naver_train.csv")
 
         with tf.gfile.Open(train_dir, "r") as f:
             reader = csv.reader(f, dialect='excel')
@@ -357,7 +355,11 @@ class KsaProcessor(DataProcessor):
 
     def get_dev_examples(self, data_dir):
         """See base class."""
-        dev_dir = os.path.join(data_dir, "shuffle_new_final_test_multi.csv")
+        if _type == 'cleansed':
+            dev_dir = os.path.join(data_dir, "final_single_plus_naver_test.csv")
+        elif _type == 'noncleansed':
+            dev_dir = os.path.join(data_dir, "noncleansing_final_single_plus_naver_test.csv")
+
         with tf.gfile.Open(dev_dir, "r") as f:
             reader = csv.reader(f, dialect='excel')
             lines = []
