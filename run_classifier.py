@@ -353,7 +353,7 @@ class KsaProcessor(DataProcessor):
             examples.append(InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
         return examples
 
-    def get_dev_examples(self, data_dir):
+    def get_dev_examples(self, data_dir, _type):
         """See base class."""
         if _type == 'cleansed':
             dev_dir = os.path.join(data_dir, "final_single_plus_naver_test.csv")
