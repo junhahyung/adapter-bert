@@ -845,6 +845,14 @@ def model_fn_builder(bert_config, num_labels, init_checkpoint, learning_rate,
         precision = [0] * n
         update_op_rec = [[]] * n
         update_op_pre = [[]] *n
+
+        conf = [0] * n
+        for i in range(n):
+            conf[i] = [0] * n
+
+        update_op_conf = [0] * n
+        for i in range(n):
+            update_op_conf[i] = [0] * n
         
         for k in range(n):
             recall[k], update_op_rec[k] = tf.metrics.recall(
@@ -856,8 +864,13 @@ def model_fn_builder(bert_config, num_labels, init_checkpoint, learning_rate,
                 predictions=tf.equal(predictions, k)
             )
 
+            conf_labels = tf.equal(label_ids, k)
+            for c in range(n):
+                conf[k][c], update_op_conf[k][c] = tf.metrics.true_positives(
+                    labels=conf_labels,
+                    predictions=tf.equal(predictions, c)
+                )
 
-        confusion_matrix = tf.contrib.metrics.confusion_matrix(label_ids, predictions)
         return {
             "eval_accuracy": accuracy,
             "eval_loss": loss,
@@ -871,7 +884,31 @@ def model_fn_builder(bert_config, num_labels, init_checkpoint, learning_rate,
             "sad_precision": (precision[2], update_op_pre[2]),
             "anger_precision": (precision[3], update_op_pre[3]),
             "surprised_precision": (precision[4], update_op_pre[4]),
-            "confusion_matrix": confusion_matrix
+            "[0][0]": (conf[0][0], update_op_conf[0][0]),
+            "[0][1]": (conf[0][1], update_op_conf[0][1]),
+            "[0][2]": (conf[0][2], update_op_conf[0][2]),
+            "[0][3]": (conf[0][3], update_op_conf[0][3]),
+            "[0][4]": (conf[0][4], update_op_conf[0][4]),
+            "[1][0]": (conf[1][0], update_op_conf[1][0]),
+            "[1][1]": (conf[1][1], update_op_conf[1][1]),
+            "[1][2]": (conf[1][2], update_op_conf[1][2]),
+            "[1][3]": (conf[1][3], update_op_conf[1][3]),
+            "[1][4]": (conf[1][4], update_op_conf[1][4]),
+            "[2][0]": (conf[2][0], update_op_conf[2][0]),
+            "[2][1]": (conf[2][1], update_op_conf[2][1]),
+            "[2][2]": (conf[2][2], update_op_conf[2][2]),
+            "[2][3]": (conf[2][3], update_op_conf[2][3]),
+            "[2][4]": (conf[2][4], update_op_conf[2][4]),
+            "[3][0]": (conf[3][0], update_op_conf[3][0]),
+            "[3][1]": (conf[3][1], update_op_conf[3][1]),
+            "[3][2]": (conf[3][2], update_op_conf[3][2]),
+            "[3][3]": (conf[3][3], update_op_conf[3][3]),
+            "[3][4]": (conf[3][4], update_op_conf[3][4]),
+            "[4][0]": (conf[4][0], update_op_conf[4][0]),
+            "[4][1]": (conf[4][1], update_op_conf[4][1]),
+            "[4][2]": (conf[4][2], update_op_conf[4][2]),
+            "[4][3]": (conf[4][3], update_op_conf[4][3]),
+            "[4][4]": (conf[4][4], update_op_conf[4][4])
         }
 
       eval_metrics = (metric_fn,
