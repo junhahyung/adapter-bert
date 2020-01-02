@@ -855,6 +855,9 @@ def model_fn_builder(bert_config, num_labels, init_checkpoint, learning_rate,
                 labels=tf.equal(label_ids, k),
                 predictions=tf.equal(predictions, k)
             )
+
+
+        confusion_matrix = tf.contrib.metrics.confusion_matrix(label_ids, predictions)
         return {
             "eval_accuracy": accuracy,
             "eval_loss": loss,
@@ -867,7 +870,8 @@ def model_fn_builder(bert_config, num_labels, init_checkpoint, learning_rate,
             "happy_precision": (precision[1], update_op_pre[1]),
             "sad_precision": (precision[2], update_op_pre[2]),
             "anger_precision": (precision[3], update_op_pre[3]),
-            "surprised_precision": (precision[4], update_op_pre[4])
+            "surprised_precision": (precision[4], update_op_pre[4]),
+            "confusion_matrix": confusion_matrix
         }
 
       eval_metrics = (metric_fn,
