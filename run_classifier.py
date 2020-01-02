@@ -334,6 +334,8 @@ class KsaProcessor(DataProcessor):
             train_dir = os.path.join(data_dir, "final_single_plus_naver_train.csv")
         elif _type == 'noncleansed':
             train_dir = os.path.join(data_dir, "noncleansing_final_single_plus_naver_train_original.csv")
+        elif _type == 'multi_added':
+            train_dir = os.path.join(data_dir, "final_single_plus_multi_plus_naver_train.csv")
 
         with tf.gfile.Open(train_dir, "r") as f:
             reader = csv.reader(f, dialect='excel')
@@ -359,6 +361,8 @@ class KsaProcessor(DataProcessor):
             dev_dir = os.path.join(data_dir, "final_single_plus_naver_test.csv")
         elif _type == 'noncleansed':
             dev_dir = os.path.join(data_dir, "noncleansing_final_single_plus_naver_test_original.csv")
+        elif _type == 'multi_added':
+            dev_dir = os.path.join(data_dir, "final_single_plus_multi_plus_naver_test.csv")
 
         with tf.gfile.Open(dev_dir, "r") as f:
             reader = csv.reader(f, dialect='excel')
