@@ -428,7 +428,7 @@ class KsaProcessor_4(DataProcessor):
             examples.append(InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
         return examples
 
-    def get_dev_examples(self, data_dir, _type):
+    def get_dev_examples(self, data_dir, _type=None):
         """See base class."""
         dev_dir = os.path.join(data_dir, "final_test_without_neutral.csv")
 
