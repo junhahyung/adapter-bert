@@ -941,8 +941,8 @@ def model_fn_builder(bert_config, num_labels, init_checkpoint, learning_rate,
                 )
 
         print("**label_ids.shape**")
-        print(label_ids.shape[0])
-        if label_ids.shape[0]==5:
+        print(label_ids.shape[1])
+        if label_ids.shape[1]==5:
             return {
                 "eval_accuracy": accuracy,
                 "eval_loss": loss,
@@ -983,7 +983,7 @@ def model_fn_builder(bert_config, num_labels, init_checkpoint, learning_rate,
                 "[4][4]": (conf[4][4], update_op_conf[4][4])
             }
 
-        elif label_ids.shape[0]==4:
+        elif label_ids.shape[1]==4:
             return {
                 "eval_accuracy": accuracy,
                 "eval_loss": loss,
