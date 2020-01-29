@@ -903,7 +903,6 @@ def model_fn_builder(bert_config, num_labels, init_checkpoint, learning_rate,
           train_op=train_op,
           scaffold_fn=scaffold_fn)
     elif mode == tf.estimator.ModeKeys.EVAL:
-      print("eval")
 
       def metric_fn(per_example_loss, label_ids, logits, is_real_example):
         predictions = tf.argmax(logits, axis=-1, output_type=tf.int32)
@@ -941,6 +940,8 @@ def model_fn_builder(bert_config, num_labels, init_checkpoint, learning_rate,
                     predictions=tf.equal(predictions, c)
                 )
 
+        print("**label_ids.shape**")
+        print(label_ids.shape[0])
         if label_ids.shape[0]==5:
             return {
                 "eval_accuracy": accuracy,
@@ -1021,7 +1022,6 @@ def model_fn_builder(bert_config, num_labels, init_checkpoint, learning_rate,
           eval_metrics=eval_metrics,
           scaffold_fn=scaffold_fn)
     else:
-      print("else")
       output_spec = tf.contrib.tpu.TPUEstimatorSpec(
           mode=mode,
           predictions={"probabilities": probabilities},
