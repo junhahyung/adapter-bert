@@ -421,10 +421,10 @@ class KsaProcessor_4(DataProcessor):
                 continue
             guid = "train-%d" % (i)
             try:
-                text_a = tokenization.convert_to_unicode(line[1])
+                text_a = tokenization.convert_to_unicode(line[2])
             except:
                 print("{}, {}".format(i, line))
-            label = tokenization.convert_to_unicode(line[2])
+            label = tokenization.convert_to_unicode(line[1])
             examples.append(InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
         return examples
 
@@ -442,8 +442,8 @@ class KsaProcessor_4(DataProcessor):
             if i == 0:
                 continue
             guid = "dev-%d" % (i)
-            text_a = tokenization.convert_to_unicode(line[1])
-            label = tokenization.convert_to_unicode(line[2])
+            text_a = tokenization.convert_to_unicode(line[2])
+            label = tokenization.convert_to_unicode(line[1])
             examples.append(InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
         return examples
 
