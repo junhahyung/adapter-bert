@@ -408,7 +408,7 @@ class KsaProcessor_4(DataProcessor):
 
     def get_train_examples(self, data_dir, _type=None):
         """See base class."""
-        train_dir = os.path.join(data_dir, "final_train_without_neutral.csv")
+        train_dir = os.path.join(data_dir, "final_remove_dup_no_neutral_train.csv")
 
         with tf.gfile.Open(train_dir, "r") as f:
             reader = csv.reader(f, dialect='excel')
@@ -430,7 +430,7 @@ class KsaProcessor_4(DataProcessor):
 
     def get_dev_examples(self, data_dir, _type=None):
         """See base class."""
-        dev_dir = os.path.join(data_dir, "final_test_without_neutral.csv")
+        dev_dir = os.path.join(data_dir, "final_remove_dup_no_neutral_test.csv")
 
         with tf.gfile.Open(dev_dir, "r") as f:
             reader = csv.reader(f, dialect='excel')
