@@ -330,14 +330,7 @@ class KsaProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir, _type=None):
         """See base class."""
-        if _type == 'cleansed':
-            train_dir = os.path.join(data_dir, "final_single_plus_naver_train.csv")
-        elif _type == 'noncleansed':
-            train_dir = os.path.join(data_dir, "noncleansing_final_single_plus_naver_train_original.csv")
-        elif _type == 'multi_added':
-            train_dir = os.path.join(data_dir, "final_single_plus_multi_plus_naver_train.csv")
-        elif _type == 'final':
-            train_dir = os.path.join(data_dir, "final_with_paraphrase.csv")
+        train_dir = os.path.join(data_dir, "final_remove_dup_train.csv")
 
         with tf.gfile.Open(train_dir, "r") as f:
             reader = csv.reader(f, dialect='excel')
@@ -359,13 +352,7 @@ class KsaProcessor(DataProcessor):
 
     def get_dev_examples(self, data_dir, _type):
         """See base class."""
-        if _type == 'cleansed':
-            dev_dir = os.path.join(data_dir, "final_single_plus_naver_test.csv")
-        elif _type == 'noncleansed':
-            dev_dir = os.path.join(data_dir, "noncleansing_final_single_plus_naver_test_original.csv")
-        elif _type == 'multi_added':
-            dev_dir = os.path.join(data_dir, "final_single_plus_multi_plus_naver_test.csv")
-
+        dev_dir = os.path.join(data_dir, "final_remove_dup_test.csv")
         with tf.gfile.Open(dev_dir, "r") as f:
             reader = csv.reader(f, dialect='excel')
             lines = []
